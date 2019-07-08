@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" type="text/css" href="shopping.css">
+    <script src="shopping.js"></script>
+    <script src="jquery-2.1.1.js"></script>
+</head>
+<body>
+    <header>Shopping</header>
+    <main id="shippingPage">
+        <section id="shoppingDetails">
+            <!--div section that contains fields for the Buy item section--> 
+            <h2>Buy Item</h2>
+            <form method="post">
+                <div class="formRow">
+                    <!--Date label box and date field set to required-->
+                    <label for="Date">Date</label>
+                    <input required autofocus autocomplete="off"
+                           name="Date" type="date" id="Date" class="validated" />
+                    <!--Item label box and number field set to required-->
+                    <label for="ItemID"style="width:100px;padding-left:20px">Item Id</label>
+                    <input required autofocus autocomplete="off"
+                           name="ItemID" type="number" min="10000000" max="99999999" id="ItemID" class="validated" />
+                   
+                </div>
+                <div class="formRow">
+                    <!--Name label box and text field set to required-->
+                    <label for="Name">Name</label>
+                    <input required autofocus autocomplete="off"
+                           name="Name" id="Name" class="validated" type="text" pattern=".{5,25}" />
+                </div>
+                <div class="formRow">
+                    <!--Description label box and textarea field set to required-->
+                    <label for="Description">Description</label>
+                    <textarea required autofocus autocomplete="off" cols="50" rows="4" name="notes1" class="validated" maxlength="1000" id="Description"></textarea>
+                    <!--<textarea required autofocus autocomplete="off" rows="4" cols="50"  maxlength="300"  name="Description" id="Description" class="validated"></textarea>-->
+                    <span class="textCount"></span>
+                </div> 
+                <div class="formRow">
+                    <!--quantity label box and number field set to required-->
+                    <label for="Quanity">Quanity</label>
+                    <input required autofocus autocomplete="off"
+                           name="Quantity" type="number" value="0" min="1" id="Quantity" class="validated"/>
+                </div>
+                <div class="formRow">
+                    <!--UnitPrice label box and number field set to required-->
+                    <label for="UnitPrice">Unit Price</label>
+                    <input required name="UnitPrice" id="UnitPrice" type="number" value = "0" placeholder="0.00" min="0.01" step="0.01" class="validated" />
+                    
+                </div>
+                <div class="formRow">
+                    <!--Item label box and text field set to readonly-->
+                    <label for="ItemCost">Item Cost</label>
+                    <input name="itemCost" id="itemCost" type="number" placeholder="0.00" readonly="readonly" />
+                    <input style="width:70px" type="submit" value="Submit" />
+                </div>
+
+            </form>
+        </section>
+        <section id="shoppingList">
+            <!--table creation for the shopping cart area, this area will contain the information the user submitted in the buy item section-->
+            <table>
+                <thead>Shopping Cart
+                    <tr>
+                        <th width="14%">Item ID</th>
+                        <th width="14%">Name</th>
+                        <th width="18%">Description</th>
+                        <th width="10%">Quantity</th>
+                        <th width="15%">Unit Price</th>
+                        <th width="15%">Item Cost</th>
+                        <th width="14%"><a class="deleteAll" href="#" style="color:white">Remove from Cart</a></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <form method="post">
+                <!--adds a blank line-->
+                <div style="white-space: pre-wrap;">
+                       
+                </div>
+                <!--creates a container to hold subtotal, shipping,tax and total--> 
+                <div class="formRow1">
+                    <label for="Subtotal">Subtotal</label>
+                    <output 
+                           name="Subtotal" type="number" id="Subtotal"/>
+                </div>
+                <div class="formRow1">
+                    <label for="Shipping">Shipping</label>
+                    <output name="Shipping" type="number" id="Shipping"  />
+                </div>
+                <div class="formRow1">
+                    <label for="Tax">Tax</label>
+                    <output name="Tax" type="number" id="Tax"   />
+                </div>
+                <div class="formRow1">
+                    <label for="Total">Total</label>
+                    <output name="Total" type="number" id="Total"  />
+                </div>
+            </form>
+</section>
+    </main>
+
+<script>
+    //calculates the itemcost when an input is done within the quantity or unitprice numeric field 
+    $("#Quantity,#UnitPrice").on("input", function () {
+        var cost = $("#UnitPrice").val() * $("#Quantity").val()
+        $("#itemCost").val(cost.toFixed(2));
+    });
+
+   
+    //After the document is loaded, screen.init() function is called 
+    $(document).ready(function (evt) {
+        var mainElement = document.getElementById('shippingPage');
+        var screen = shippingPage(mainElement);
+        
+
+        // creates an instance on screen (as the form data) and initializes the init() function in your .js file in screen.init()
+        screen.init();  
+
+    });
+
+
+</script>
+
+
+</body>
+</html>
